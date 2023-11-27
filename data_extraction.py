@@ -9,18 +9,15 @@ class DataExtractor:
     def list_databe_tables(self):
         try: 
             with engine_from_config.connect() as connection:
-                query = text("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
-                result = connection.execute(query)
-                tables = result.fetchall()
+                query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"
+                tables = pd.read_sql_query(query, connection)
                 print("Tables in the database:")
-                for table in tables:
-                    print(table[0])
+                for table in tables['table_name']:
+                    print(table)
         except Exception as e:
             print("Failed to fetch tables:", e)
 
 
 
     def read_rds_table(self, table_name):
-        con_engine = init_db_engine()  
-        table_data = pd.read_sql(f'SELECT * FROM {table_name}', con_engine)
-        return table_data
+        pass
