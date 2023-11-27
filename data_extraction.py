@@ -20,4 +20,5 @@ class DataExtractor:
 
 
     def read_rds_table(self, table_name):
-        pass
+        table_name = self.list_databe_tables()
+        return table_name
