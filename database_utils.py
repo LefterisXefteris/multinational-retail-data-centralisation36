@@ -6,7 +6,7 @@ class DatabaseConnector:
     
 
     def read_db_creds(self):
-        with open("credentials.yaml", "r") as f:
+        with open("db_creds.yaml", "r") as f:
             credentials = yaml.safe_load(f)
         return credentials
     
