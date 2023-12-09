@@ -4,7 +4,6 @@ from sqlalchemy import create_engine, engine_from_config, text
 
 class DatabaseConnector:
     
-
     def read_db_creds(self):
         with open("db_creds.yaml", "r") as f:
             credentials = yaml.safe_load(f)
