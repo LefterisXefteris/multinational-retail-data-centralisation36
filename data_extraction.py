@@ -1,6 +1,6 @@
 from sqlalchemy import engine_from_config, text
 import tabula
-from database_utils import read_db_creds, init_db_engine
+from database_utils import DatabaseConnector
 import pandas as pd
 from tabula import read_pdf
 
@@ -25,7 +25,14 @@ class DataExtractor:
         table_name = self.list_databe_tables()
         return table_name
     
+
     def retrieve_pdf_data(self):
         the_link = "https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf"
         link_to_pdf = tabula.read_pdf(the_link)
         return link_to_pdf
+    
+
+
+
+de = DataExtractor()
+print(de.read_rds_table)
