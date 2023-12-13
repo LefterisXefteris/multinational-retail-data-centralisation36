@@ -2,6 +2,7 @@ from sqlalchemy import engine_from_config, text
 import tabula
 from database_utils import DatabaseConnector
 import pandas as pd
+import tabula
 from tabula import read_pdf
 
 
@@ -35,4 +36,4 @@ class DataExtractor:
 
 
 de = DataExtractor()
-print(de.read_rds_table)
+print(de.retrieve_pdf_data())
