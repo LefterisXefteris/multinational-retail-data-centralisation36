@@ -1,17 +1,29 @@
-from sqlalchemy import create_engine, engine_from_config, text
-import tabula
+from sqlalchemy import Engine, create_engine, engine_from_config, text
 from database_utils import DatabaseConnector
 import pandas as pd
 import tabula
 from tabula import read_pdf
-from database_utils import read_db_creds, init_db_engine
-from data_cleaning import data
-import PyPDF2
 
 
-class DataExtractor:
-    
+
+class DataExtractor():
+
+    def __init__(self, instance = DatabaseConnector()):
+        self.instance = instance
 
     def read_rds_table(self):
-        pass
+        try:
+            engine = self.instance.init_db_engine()
+            with engine.connect() as connection:
+                result = connection.execute(text("SELECT * FROM legacy_users"))
+                for row in result:
+                    print(row)
+        except Exception as e:
+            print("FAILED", e)
         
+        
+        
+
+
+e = DataExtractor()
+e.read_rds_table()

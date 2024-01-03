@@ -5,7 +5,6 @@ from sqlalchemy import Engine, create_engine, engine_from_config, text, inspect
 
 
 class DatabaseConnector:
-
     
     def read_db_creds(self):
         try:
@@ -45,5 +44,5 @@ class DatabaseConnector:
 
             
 
-d = DatabaseConnector()
-d.list_db_tables()
+""""d = DatabaseConnector()
+d.list_db_tables()"""
