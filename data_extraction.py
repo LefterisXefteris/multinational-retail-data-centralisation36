@@ -16,8 +16,8 @@ class DataExtractor():
             engine = self.instance.init_db_engine()
             with engine.connect() as connection:
                 result = connection.execute(text("SELECT * FROM legacy_users"))
-                for row in result:
-                    print(row)
+                df = pd.read_sql_table('legacy_users', engine)
+                print(df.head(10))
         except Exception as e:
             print("FAILED", e)
         
