@@ -11,19 +11,14 @@ class DataExtractor():
     def __init__(self, instance = DatabaseConnector()):
         self.instance = instance
 
-    def read_rds_table(self):
-        try:
-            engine = self.instance.init_db_engine()
-            with engine.connect() as connection:
-                result = connection.execute(text("SELECT * FROM legacy_users"))
-                df = pd.read_sql_table('legacy_users', engine)
-                print(df.head(10))
-        except Exception as e:
-            print("FAILED", e)
-        
-        
-        
+    def read_rds_table(self, table_name):
+        engine = self.instance.init_db_engine()
+        df = pd.read_sql_table(table_name, engine)
+        return df
+    
 
 
+        
+""""        
 e = DataExtractor()
-e.read_rds_table()
+print(e.read_rds_table('legacy_users'))"""

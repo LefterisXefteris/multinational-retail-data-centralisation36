@@ -12,7 +12,7 @@ class DatabaseConnector:
                 creds = yaml.safe_load(f)
             return creds
         except:
-            print("Failed to read cred")
+            print("Failed to read creds")
 
 
     def init_db_engine(self):
@@ -42,7 +42,16 @@ class DatabaseConnector:
             print("Failed to fecth tables.", e)
 
 
+    def upload_to_db(self, table):
+
+        try:
+            engine = self.init_db_engine()
+            table.to_sql(table, engine)
+        except Exception as e:
+            print("Failed to upload table to databse", e)
+
+
             
 
-""""d = DatabaseConnector()
-d.list_db_tables()"""
+d = DatabaseConnector()
+d.upload_to_db('legacy_users')
