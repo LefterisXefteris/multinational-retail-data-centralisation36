@@ -1,11 +1,13 @@
-import psycopg2
+import yaml
 import sqlalchemy
-import yaml 
-from sqlalchemy import Engine, create_engine, engine_from_config, text, inspect
-
-
+from sqlalchemy import create_engine, text
+from data_cleaning import DataCleaning
 class DatabaseConnector:
-    
+
+
+    def __init__(self, c_df=DataCleaning()):
+        self.c_df = c_df
+        
     def read_db_creds(self):
         try:
             with open('db_creds.yaml') as f:
@@ -51,7 +53,18 @@ class DatabaseConnector:
             print("Failed to upload table to databse", e)
 
 
+    def upload_to_db(self, df, table_name, engine):
+        try:
+            engine = create_engine('postgresql+psycopg2://postgres:admin@localhost/sales_data')
+            df = self.c_df.clean_user_data()
+            df.to_sql(table_name, engine)
+            
+        except Exception as e:
+            print("Failed to connect", e)
+
+
+
             
 
-d = DatabaseConnector()
-d.upload_to_db('legacy_users')
+"""d = DatabaseConnector()
+d.upload_to_db()"""
