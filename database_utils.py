@@ -1,25 +1,25 @@
 import yaml
 import sqlalchemy
 from sqlalchemy import create_engine, text
-from data_cleaning import DataCleaning
+
+
 class DatabaseConnector:
 
 
-    def __init__(self, c_df=DataCleaning()):
-        self.c_df = c_df
         
-    def read_db_creds(self):
+    def read_db_creds(self, file):
         try:
-            with open('db_creds.yaml') as f:
-                creds = yaml.safe_load(f)
-            return creds
+            with open(file, 'r') as stream:
+                data_loaded = yaml.safe_load(stream)
+                return data_loaded
         except:
             print("Failed to read creds")
 
 
     def init_db_engine(self):
 
-        creds = self.read_db_creds()
+        creds = self.read_db_creds('db_creds.yaml')
+
         HOST = creds['RDS_HOST']
         USER = creds['RDS_USER']
         PASSWORD = creds['RDS_PASSWORD']
@@ -44,27 +44,21 @@ class DatabaseConnector:
             print("Failed to fecth tables.", e)
 
 
-    def upload_to_db(self, table):
-
-        try:
-            engine = self.init_db_engine()
-            table.to_sql(table, engine)
-        except Exception as e:
-            print("Failed to upload table to databse", e)
 
 
-    def upload_to_db(self, df, table_name, engine):
-        try:
-            engine = create_engine('postgresql+psycopg2://postgres:admin@localhost/sales_data')
-            df = self.c_df.clean_user_data()
-            df.to_sql(table_name, engine)
-            
-        except Exception as e:
-            print("Failed to connect", e)
+    
+
+if __name__ == '__main__':
+
+
+    
+
+    """du = DatabaseConnector()
+    creds = du.read_db_creds('db_creds.yaml')
+    engine = du.init_db_engine()
+    print(du.list_db_tables())"""
 
 
 
-            
+    
 
-"""d = DatabaseConnector()
-d.upload_to_db()"""
