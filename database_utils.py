@@ -6,7 +6,6 @@ from sqlalchemy import create_engine, text
 class DatabaseConnector:
 
 
-        
     def read_db_creds(self, file):
         try:
             with open(file, 'r') as stream:
@@ -40,6 +39,16 @@ class DatabaseConnector:
                     print(row)
         except Exception as e:
             print("Failed to fecth tables.", e)
+
+
+    def upload_to_db(self,df, table_name, engine):
+
+        try: 
+            df.to_sql(table_name, engine, index=False, if_exists= 'replace')
+            print("Table uploaded to Sales Data")
+        except Exception as e:
+            print('Failed to upload local table to aws:', e)
+        
 
 
 
