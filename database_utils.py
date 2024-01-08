@@ -16,9 +16,8 @@ class DatabaseConnector:
             print("Failed to read creds")
 
 
-    def init_db_engine(self):
+    def init_db_engine(self, creds):
 
-        creds = self.read_db_creds('db_creds.yaml')
 
         HOST = creds['RDS_HOST']
         USER = creds['RDS_USER']
@@ -32,9 +31,8 @@ class DatabaseConnector:
 
         return engine
     
-    def list_db_tables(self):
+    def list_db_tables(self, engine):
         try:
-            engine = self.init_db_engine()
             with engine.connect() as connection:
                 result = connection.execute(text("""SELECT table_name FROM information_schema.tables
        WHERE table_schema = 'public'"""))
@@ -46,17 +44,12 @@ class DatabaseConnector:
 
 
 
-    
 
-if __name__ == '__main__':
 
 
     
 
-    """du = DatabaseConnector()
-    creds = du.read_db_creds('db_creds.yaml')
-    engine = du.init_db_engine()
-    print(du.list_db_tables())"""
+    
 
 
 
