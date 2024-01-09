@@ -7,12 +7,9 @@ class DatabaseConnector:
 
 
     def read_db_creds(self, file):
-        try:
-            with open(file, 'r') as stream:
-                data_loaded = yaml.safe_load(stream)
-                return data_loaded
-        except:
-            print("Failed to read creds")
+        with open(file) as f:
+            creds = yaml.safe_load(f)
+        return creds
 
 
     def init_db_engine(self, creds):
@@ -42,12 +39,13 @@ class DatabaseConnector:
 
 
     def upload_to_db(self,df, table_name, engine):
-
-        try: 
+        try:
             df.to_sql(table_name, engine, index=False, if_exists= 'replace')
             print("Table uploaded to Sales Data")
         except Exception as e:
             print('Failed to upload local table to aws:', e)
+
+    
         
 
 
