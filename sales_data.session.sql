@@ -1,1 +1,1 @@
-select * from legacy_users
+SELECT DISTINCT(email_address) from legacy_users;
