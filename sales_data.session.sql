@@ -1,1 +1,1 @@
-SELECT DISTINCT(email_address) from legacy_users;
+SELECT DISTINCT(date_of_birth) from legacy_users;

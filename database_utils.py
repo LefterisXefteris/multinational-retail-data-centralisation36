@@ -1,7 +1,8 @@
 import yaml
 import sqlalchemy
 from sqlalchemy import create_engine, text
-
+import tabula
+import pandas as pd
 
 class DatabaseConnector:
 
@@ -45,6 +46,12 @@ class DatabaseConnector:
         except Exception as e:
             print('Failed to upload local table to aws:', e)
 
+    def retrieve_pdf_data(self, file, path):
+        data = tabula.read_pdf(file,pages='all')
+
+        return df
+        
+        
     
         
 

@@ -1,1 +1,1 @@
-select * from legacy_users;
+select DISTINCT(user_uuid) from legacy_users;
