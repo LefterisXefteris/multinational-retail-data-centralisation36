@@ -48,9 +48,10 @@ class DatabaseConnector:
 
     def retrieve_pdf_data(self, table_file, output_csv):
         df = convert_into(table_file, output_csv, output_format='csv', lattice=True, stream=False, pages="all")
+        df = pd.read_csv(output_csv)
         return df
-        
-        
+       
+    
     
         
 

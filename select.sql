@@ -1,1 +1,1 @@
-select DISTINCT(user_uuid) from legacy_users;
+select * from dim_card;
