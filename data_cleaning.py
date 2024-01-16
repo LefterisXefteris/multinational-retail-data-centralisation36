@@ -14,8 +14,10 @@ class DataCleaning:
 
 
     def clean_card_data(self, table):
+
         table['card_number']= table['card_number'].astype(str).apply(lambda x: x.strip('?') if '?' else x)
-        return table
+        
+        return table 
        
 
 
