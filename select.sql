@@ -1,1 +1,1 @@
-select distinct(card_provider) from dim_card;
+select * from dim_store_details;

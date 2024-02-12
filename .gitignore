@@ -1,4 +1,3 @@
 # Ignore db_creds.yaml file containing database credentials
 db_creds.yaml
-main.py
 local_db_creds.yaml

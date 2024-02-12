@@ -41,15 +41,19 @@ class DatabaseConnector:
 
     def upload_to_db(self,df, table_name, engine):
         try:
-            df.to_sql(table_name, engine, index=False, if_exists= 'replace')
+            df = pd.DataFrame(df)
+            df.to_sql(table_name, engine, if_exists='replace')
             print("Table uploaded to Sales Data")
         except Exception as e:
-            print('Failed to upload local table to aws:', e)
+            print('Failed to upload aws table to lacal databse:', e)
 
     def retrieve_pdf_data(self, table_file, output_csv):
         df = convert_into(table_file, output_csv, output_format='csv', lattice=True, stream=False, pages="all")
         df = pd.read_csv(output_csv)
         return df
+
+
+
        
     
     
