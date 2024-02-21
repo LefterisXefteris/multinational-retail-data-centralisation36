@@ -4,7 +4,11 @@ from PyPDF2 import PdfFileReader
 import pandas as pd
 
 import json
-import boto3
+import boto3    
+
+from urllib3.exceptions import InsecureRequestWarning    
+from urllib3 import disable_warnings    
+disable_warnings(InsecureRequestWarning)
 
 
 class DataExtractor:
@@ -37,10 +41,13 @@ class DataExtractor:
         result_df = pd.concat(list_of_frames)
         return result_df
     
+    
     def extract_from_s3(self, address):
-        '''Extract CSV using s3 address'''
-        s3 = boto3.client('s3')
+
+        s3 = boto3.client('s3', verify=False)
         bucket, key = address.replace("s3://", "").split("/", 1)
+        print(bucket)
+        print(key)
         s3.download_file(bucket, key, key)
         df = pd.read_csv(key)
         return df
